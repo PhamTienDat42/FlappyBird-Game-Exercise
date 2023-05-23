@@ -7,11 +7,17 @@ public class Player : MonoBehaviour
     private Vector3 direction;
     public float gravity = -9.8f;
     public float strength = 5f;
+    public AudioSource jumpSound;
+    public AudioSource deathSound;
+    private GameManager gameManager;
+
+    
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             direction = Vector3.up * strength;
+            jumpSound.Play();
         }
         if(Input.touchCount > 0)
         {
@@ -39,6 +45,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Obstacle"))
         {
             FindObjectOfType<GameManager>().GameOver();
+            deathSound.Play();
         }
         else if (other.gameObject.CompareTag("Scoring"))
         {
