@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class BackGroundMoverment : MonoBehaviour
+public class BackGroundMovement : MonoBehaviour
 {
     private MeshRenderer meshRenderer;
     public float animationSpeed = 1f;
+
     private void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();

@@ -8,7 +8,7 @@ public class ShootingBirdController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             Shoot();
         }

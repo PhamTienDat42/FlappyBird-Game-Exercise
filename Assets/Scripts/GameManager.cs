@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    private Player player;
     private SpawnPipes spawner;
 
     public Text scoreText;
@@ -21,7 +20,7 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
 
-        player = FindObjectOfType<Player>();
+
         spawner = FindObjectOfType<SpawnPipes>();
         highScoreText.text = PlayerPrefs.GetInt("High Score", 0).ToString();
         LoadBird();
@@ -40,7 +39,7 @@ public class GameManager : MonoBehaviour
 
         AudioListener.volume = 1f;
         Time.timeScale = 1f;
-        player.enabled = true;
+
 
         PipesMovement[] pipes = FindObjectsOfType<PipesMovement>();
 
@@ -56,15 +55,15 @@ public class GameManager : MonoBehaviour
         highScoreLabelText.SetActive(true);
         playButton.SetActive(true);
         gameOver.SetActive(true);
-        RestartScene();
         Pause();
+        Invoke("RestartScene", 0.1f);
     }
 
     public void Pause()
     {
         Time.timeScale = 0f;
         AudioListener.volume = 0f;
-        player.enabled = false;
+
     }
 
     public void IncreaseScore()
