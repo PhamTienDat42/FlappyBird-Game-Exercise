@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class BirdSelection : MonoBehaviour
 {
-    public GameObject[] Birds;
+    [SerializeField] private GameObject[] Birds;
     private int birdIndex;
     private bool selectedBirdPrefab = false;
+    private const string birdIndexs = "BirdIndex";
+
     public void ChangeBird(int index)
     {
         for(int i = 0; i < Birds.Length; i++)
@@ -21,14 +23,14 @@ public class BirdSelection : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        if(!selectedBirdPrefab)
+        SceneManager.LoadScene(SceneName.FlappyBird.ToString());
+        if (!selectedBirdPrefab)
         {
             Birds[0].SetActive(true);
         }
         else
         {
-            PlayerPrefs.SetInt("BirdIndex", birdIndex);
+            PlayerPrefs.SetInt(birdIndexs, birdIndex);
         }
     }
 }

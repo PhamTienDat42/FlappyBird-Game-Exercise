@@ -4,16 +4,19 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    private SpawnPipes spawner;
+    [SerializeField] private SpawnPipes spawner;
 
-    public Text scoreText;
-    public Text highScoreText;
+    [SerializeField] private Text scoreText;
+    [SerializeField] private Text highScoreText;
 
-    public GameObject highScore;
-    public GameObject highScoreLabelText;
-    public GameObject playButton;
-    public GameObject gameOver;
+    [SerializeField] private GameObject highScore;
+    [SerializeField] private GameObject highScoreLabelText;
+    [SerializeField] private GameObject playButton;
+    [SerializeField] private GameObject gameOver;
     public int score { get; private set; }
+    private const string highScores = "High Score";
+    private const string birdIndexs = "BirdIndex";
+
     [SerializeField] private GameObject[] birdPrefabs;
 
     private void Awake()
@@ -21,8 +24,8 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
 
 
-        spawner = FindObjectOfType<SpawnPipes>();
-        highScoreText.text = PlayerPrefs.GetInt("High Score", 0).ToString();
+        //spawner = FindObjectOfType<SpawnPipes>();
+        highScoreText.text = PlayerPrefs.GetInt(highScores, 0).ToString();
         LoadBird();
         Pause();
     }
@@ -30,7 +33,7 @@ public class GameManager : MonoBehaviour
     public void Play()
     {
         score = 0;
-        scoreText.text = "Score: " + score.ToString();
+        scoreText.text = $"Score: {score.ToString()}";
 
         highScore.SetActive(false);
         highScoreLabelText.SetActive(false);
@@ -68,18 +71,18 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseScore()
     {
-        score++;
-        scoreText.text = "Score: " + score.ToString();
-        if (score > PlayerPrefs.GetInt("High Score", 0))
+        score++;      
+        scoreText.text = $"Score: {score.ToString()}";
+        if (score > PlayerPrefs.GetInt(highScores, 0))
         {
-            PlayerPrefs.SetInt("High Score", score);
+            PlayerPrefs.SetInt(highScores, score);
             highScoreText.text = score.ToString();
         }
     }
 
     private void LoadBird()
     {
-        int birdIndex = PlayerPrefs.GetInt("BirdIndex");
+        int birdIndex = PlayerPrefs.GetInt(birdIndexs);
         GameObject.Instantiate(birdPrefabs[birdIndex]);
     }
 

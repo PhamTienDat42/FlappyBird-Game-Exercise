@@ -7,11 +7,17 @@ public class MenuController : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(SceneName.FlappyBird.ToString());
     }
     public void Quit()
     {
         Debug.Log("QUit!!!!");
         Application.Quit();
     }
+}
+
+public enum SceneName
+{
+    StartScene,
+    FlappyBird,
 }

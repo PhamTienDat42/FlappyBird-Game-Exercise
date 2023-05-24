@@ -5,12 +5,13 @@ using UnityEngine.Audio;
 
 public class MusicControl : MonoBehaviour
 {
-    public AudioMixer audioMixer;
-    bool soundOn = false;
+    [SerializeField] private AudioMixer audioMixer;
+    private bool soundOn = false;
+    private const string volumee = "volume";
     
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("volume", volume);
+        audioMixer.SetFloat(volumee, volume);
     }
 
     public void OnSound()
@@ -29,11 +30,13 @@ public class MusicControl : MonoBehaviour
     {
         if(soundOn == true)
         {
-            AudioListener.volume = 1f;
+            AudioSource a = new AudioSource();
+            a.Play();
         }
         else
-        {
-            AudioListener.volume = 0f;
+        {         
+            AudioSource a = new AudioSource();
+            a.Pause();
         }
     }
 }

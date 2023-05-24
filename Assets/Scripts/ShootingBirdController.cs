@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class ShootingBirdController : MonoBehaviour
 {
-    public GameObject bulletPrefab;
-    public Transform firePoint;
-    public float bulletSpeed = 10f;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private float bulletSpeed = 10f;
 
     private void Update()
     {
@@ -16,10 +16,10 @@ public class ShootingBirdController : MonoBehaviour
 
     private void Shoot()
     {
-        // T?o ??i t??ng ??n t? Prefab
+        // Create Obj bullet from Prefabs
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
-        // ??t t?c ?? cho ??n
+        // Set bullet speed
         Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
         bulletRb.velocity = transform.right * bulletSpeed;
         Destroy(bullet, 3f);

@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class PipesMovement : MonoBehaviour
 {
-    public Transform top;
-    public Transform bottom;
+    [SerializeField] private Transform top;
+    [SerializeField] private Transform bottom;
 
-    public float speed = 5f;
+    [SerializeField] private float speed = 5f;
     private float leftEdge;
 
     private void Start()
