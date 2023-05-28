@@ -10,7 +10,7 @@ public class PipesMovement : MonoBehaviour
 
     private void Start()
     {
-        leftEdge = Camera.main.ScreenToWorldPoint(Vector3.zero).x - 1f;
+        leftEdge = Camera.main.ScreenToWorldPoint(Vector3.zero).x + 1.5f;
     }
 
     private void Update()
@@ -23,3 +23,5 @@ public class PipesMovement : MonoBehaviour
         }
     }
 }
+
+

@@ -106,6 +106,8 @@ MonoBehaviour:
   strength: 5
   jumpSound: {fileID: 6275396104273071295}
   deathSound: {fileID: 2358044105031269973}
+  pipeWidth: 1
+  spacePipe: 2
 --- !u!82 &6275396104273071295
 AudioSource:
   m_ObjectHideFlags: 0
