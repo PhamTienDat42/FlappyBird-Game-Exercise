@@ -8,6 +8,7 @@ public class MusicControl : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
     private bool soundOn = false;
     private const string volumee = "volume";
+    [SerializeField] private AudioSource BGMusic;
     
     public void SetVolume(float volume)
     {
@@ -17,26 +18,17 @@ public class MusicControl : MonoBehaviour
     public void OnSound()
     {
         AudioListener.volume = 1f;
+        //AudioSource a = new AudioSource();
+        //a.Play();
+        BGMusic.Play();
         soundOn = true;
+        PlayerPrefs.SetInt("SoundOn", 1);
     }
 
     public void OffSound()
     {
-        AudioListener.volume = 0f;
+        BGMusic.Pause();
         soundOn = false;
-    }
-
-    public void SoundPlay()
-    {
-        if(soundOn == true)
-        {
-            AudioSource a = new AudioSource();
-            a.Play();
-        }
-        else
-        {         
-            AudioSource a = new AudioSource();
-            a.Pause();
-        }
+        PlayerPrefs.SetInt("SoundOn", 0);
     }
 }

@@ -10,11 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 523095212657178904}
   - component: {fileID: 2928413434397237831}
-  - component: {fileID: -9169873690263315159}
   - component: {fileID: 6275396104273071295}
   - component: {fileID: 2358044105031269973}
-  - component: {fileID: 1011661181617427015}
-  - component: {fileID: 467242791726086087}
   - component: {fileID: 7587479385225683514}
   m_Layer: 0
   m_Name: SlowBird
@@ -90,24 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-9169873690263315159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7099336706471045425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f75a4db236e26247ba3b6d08b26da08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravity: -9.8
-  strength: 5
-  jumpSound: {fileID: 6275396104273071295}
-  deathSound: {fileID: 2358044105031269973}
-  pipeWidth: 1
-  spacePipe: 2
 --- !u!82 &6275396104273071295
 AudioSource:
   m_ObjectHideFlags: 0
@@ -300,43 +279,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!50 &1011661181617427015
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7099336706471045425}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!58 &467242791726086087
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7099336706471045425}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.25
 --- !u!114 &7587479385225683514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,3 +291,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5456da2703b772541a90471d89bc66c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravity: -9.8
+  strength: 5
+  jumpSound: {fileID: 6275396104273071295}
+  deathSound: {fileID: 2358044105031269973}
+  pipeWidth: 1
+  spacePipe: 2
+  spawnPipes: {fileID: 0}
+  gameManager: {fileID: 0}

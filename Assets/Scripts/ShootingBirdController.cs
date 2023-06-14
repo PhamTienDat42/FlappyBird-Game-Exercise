@@ -1,27 +1,38 @@
+using System.Collections;
 using UnityEngine;
 
-public class ShootingBirdController : MonoBehaviour
+public class ShootingBirdController : Player
 {
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float bulletSpeed = 10f;
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Shoot();
+            SpecialSkill();
         }
     }
 
-    private void Shoot()
+    protected override void SpecialSkill()
     {
-        // Create Obj bullet from Prefabs
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        GameObject bullet = ObjectPool.SharedInstance.GetPooledObject();
+        if (bullet != null)
+        {
+            bullet.transform.position = firePoint.position;
+            bullet.transform.rotation = firePoint.rotation;
+            bullet.SetActive(true);
+            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+            bulletRb.velocity = bullet.transform.right * bulletSpeed;
+            StartCoroutine(DeactivateBullet(bullet));
+        }
+    }
 
-        // Set bullet speed
-        Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
-        bulletRb.velocity = transform.right * bulletSpeed;
-        Destroy(bullet, 3f);
+    private IEnumerator DeactivateBullet(GameObject bullet)
+    {
+        yield return new WaitForSeconds(1f);
+        bullet.SetActive(false);
     }
 }

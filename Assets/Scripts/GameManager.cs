@@ -1,28 +1,43 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour, IGameManager
+public class GameManager : MonoBehaviour
 {
     [SerializeField] private SpawnPipes spawner;
-
     [SerializeField] private Text scoreText;
     [SerializeField] private Text highScoreText;
-
     [SerializeField] private GameObject highScore;
     [SerializeField] private GameObject highScoreLabelText;
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject gameOver;
+    [SerializeField] private AudioSource BGMusic;
+    [SerializeField] private GameObject quitbtn;
     public int score { get; private set; }
     private const string highScores = "High Score";
     private const string birdIndexs = "BirdIndex";
-
+    private const string saveIndexBird = "SaveIndexBird";
     [SerializeField] private GameObject[] birdPrefabs;
+    private BirdDontDestroyOnLoad birdDontDestroyOnLoad;
+    private GameObject objDontDestroyOnLoad;
+    private int birdIndex;
+
+    private void Start()
+    {
+        int myValue = PlayerPrefs.GetInt("SoundOn", 1);
+        if (myValue == 0)
+        {
+            BGMusic.Pause();
+        }
+    }
 
     private void Awake()
     {
+        objDontDestroyOnLoad = GameObject.FindGameObjectWithTag(saveIndexBird);
+        birdDontDestroyOnLoad = objDontDestroyOnLoad.GetComponent<BirdDontDestroyOnLoad>();
+        birdIndex = birdDontDestroyOnLoad.BirdIndex;
         Application.targetFrameRate = 60;
-        //spawner = FindObjectOfType<SpawnPipes>();
         highScoreText.text = PlayerPrefs.GetInt(highScores, 0).ToString();
         LoadBird();
         Pause();
@@ -36,14 +51,20 @@ public class GameManager : MonoBehaviour, IGameManager
         highScoreLabelText.SetActive(false);
         playButton.SetActive(false);
         gameOver.SetActive(false);
+        quitbtn.SetActive(false);
         AudioListener.volume = 1f;
         Time.timeScale = 1f;
-        PipesMovement[] pipes = FindObjectsOfType<PipesMovement>();
 
+        PipesMovement[] pipes = FindObjectsOfType<PipesMovement>();
         for (int i = 0; i < pipes.Length; i++)
         {
             Destroy(pipes[i].gameObject);
         }
+    }
+
+    public void Quit()
+    {
+        SceneManager.LoadScene(SceneName.StartScene.ToString());
     }
 
     public void GameOver()
@@ -52,8 +73,9 @@ public class GameManager : MonoBehaviour, IGameManager
         highScoreLabelText.SetActive(true);
         playButton.SetActive(true);
         gameOver.SetActive(true);
+        quitbtn.SetActive(true);
         Pause();
-        Invoke("RestartScene", 0.1f);
+        RestartScene();
     }
 
     public void Pause()
@@ -64,7 +86,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void IncreaseScore()
     {
-        score++;
+        score++;      
         scoreText.text = $"Score: {score.ToString()}";
         if (score > PlayerPrefs.GetInt(highScores, 0))
         {
@@ -75,18 +97,11 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private void LoadBird()
     {
-        int birdIndex = PlayerPrefs.GetInt(birdIndexs);
-        GameObject.Instantiate(birdPrefabs[birdIndex]);
+        birdPrefabs[birdIndex].SetActive(true);
     }
 
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-}
-
-public interface IGameManager
-{
-    void GameOver();
-    void IncreaseScore();
 }

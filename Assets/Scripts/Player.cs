@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public abstract class Player : MonoBehaviour
 {
     private Vector3 direction;
     [SerializeField] private float gravity = -9.8f;
@@ -12,39 +12,19 @@ public class Player : MonoBehaviour
     [SerializeField] private float pipeWidth = 1f; // width
     [SerializeField] private float spacePipe = 2f; // space between top-bottom pipe
     private List<GameObject> scoredPipes = new List<GameObject>();
-    private SpawnPipes spawnPipes;
-    //private BirdSelection birdSelection;
-    private IGameManager gameManager;
-
-    public void Initialize(IGameManager gameManager)
-    {
-        this.gameManager = gameManager;
-    }
-
-    private void GameOver()
-    {
-        gameManager.GameOver();
-    }
-
-    private void IncreaseScore()
-    {
-        gameManager.IncreaseScore();
-    }
-
-    private void Start()
-    {
-        spawnPipes = FindObjectOfType<SpawnPipes>();
-        //birdSelection = FindObjectOfType<BirdSelection>();
-    }
+    [SerializeField] private SpawnPipes spawnPipes;
+    [SerializeField] private GameManager gameManager;
 
 
-    private void Update()
+
+    protected abstract void SpecialSkill();
+
+    protected virtual void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             direction = Vector3.up * strength;
         }
-
         // Apply gravity and update the position
         direction.y += gravity * Time.deltaTime;
         transform.position += direction * Time.deltaTime;
@@ -59,12 +39,13 @@ public class Player : MonoBehaviour
         transform.position = position;
         direction = Vector3.zero;
     }
-
+    
     private void CheckCollisionWithPipes()
     {
         Vector3 playerPosition = transform.position;
         Vector3 nextPipePosition = spawnPipes.GetNextPipePosition();
         GameObject nextPipe = spawnPipes.GetGameObjectNextPipe();
+        
 
         float collisionXMin = nextPipePosition.x - pipeWidth / 2f;
         float collisionXMax = nextPipePosition.x + pipeWidth / 2f;
@@ -72,8 +53,8 @@ public class Player : MonoBehaviour
         float collisionYMax = nextPipePosition.y + spacePipe / 2f;
 
         // Check Collision
-        if (playerPosition.x > collisionXMin && playerPosition.x < collisionXMax &&
-            (playerPosition.y > collisionYMax || playerPosition.y < collisionYMin))
+        if ((playerPosition.x > collisionXMin && playerPosition.x < collisionXMax &&
+            (playerPosition.y > collisionYMax || playerPosition.y < collisionYMin)) || playerPosition.y < -4.5f || playerPosition.y > 5.5f)
         {
             deathSound.Play();
             gameManager.GameOver();
@@ -86,3 +67,4 @@ public class Player : MonoBehaviour
         }
     }
 }
+

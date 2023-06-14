@@ -9,7 +9,7 @@ public class BirdSelection : MonoBehaviour
     private int birdIndex;
     private bool selectedBirdPrefab = false;
     private const string birdIndexs = "BirdIndex";
-    private Vector3 birdPosition;
+    [SerializeField] private BirdDontDestroyOnLoad birdDestroyOnLoad;
 
     public void ChangeBird(int index)
     {
@@ -20,7 +20,6 @@ public class BirdSelection : MonoBehaviour
         }
         this.birdIndex = index;
         Birds[index].SetActive(true);
-        birdPosition = Birds[index].transform.position;
     }
 
     public void StartGame()
@@ -29,16 +28,16 @@ public class BirdSelection : MonoBehaviour
         if (!selectedBirdPrefab)
         {
             Birds[0].SetActive(true);
-            birdPosition = Birds[0].transform.position;
         }
         else
         {
-            PlayerPrefs.SetInt(birdIndexs, birdIndex);
+            Debug.Log(birdIndex);
         }
+        birdDestroyOnLoad.BirdIndex = GetBirdIndex();
     }
 
-    public Vector3 GetSelectedBirdPosition()
+    public int GetBirdIndex()
     {
-        return birdPosition;
+        return birdIndex;
     }
 }

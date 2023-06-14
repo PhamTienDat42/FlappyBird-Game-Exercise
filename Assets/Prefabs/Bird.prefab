@@ -10,18 +10,16 @@ GameObject:
   m_Component:
   - component: {fileID: 7817384514834524621}
   - component: {fileID: 3515869554188885246}
-  - component: {fileID: 2492857714761253531}
   - component: {fileID: 8435705572108333736}
   - component: {fileID: -9170572635115515311}
-  - component: {fileID: 2892219707293613262}
-  - component: {fileID: 8020372710736354720}
+  - component: {fileID: 4453643303922541922}
   m_Layer: 0
   m_Name: Bird
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7817384514834524621
 Transform:
   m_ObjectHideFlags: 0
@@ -89,24 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2492857714761253531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6327172979217787282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f75a4db236e26247ba3b6d08b26da08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravity: -9.8
-  strength: 5
-  jumpSound: {fileID: 8435705572108333736}
-  deathSound: {fileID: -9170572635115515311}
-  pipeWidth: 1
-  spacePipe: 2
 --- !u!82 &8435705572108333736
 AudioSource:
   m_ObjectHideFlags: 0
@@ -299,40 +279,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!50 &2892219707293613262
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6327172979217787282}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!58 &8020372710736354720
-CircleCollider2D:
+--- !u!114 &4453643303922541922
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6327172979217787282}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.25
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f46201d91d8b3246869cda9815b066e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: -9.8
+  strength: 5
+  jumpSound: {fileID: 8435705572108333736}
+  deathSound: {fileID: -9170572635115515311}
+  pipeWidth: 1
+  spacePipe: 2
+  spawnPipes: {fileID: 0}
+  gameManager: {fileID: 0}

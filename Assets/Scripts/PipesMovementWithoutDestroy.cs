@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class PipesMovement : MonoBehaviour
+public class PipesMovementWithoutDestroy : MonoBehaviour
 {
     [SerializeField] private Transform top;
     [SerializeField] private Transform bottom;
@@ -10,7 +12,7 @@ public class PipesMovement : MonoBehaviour
 
     private void Start()
     {
-        leftEdge = Camera.main.ScreenToWorldPoint(Vector3.zero).x + 1.5f;
+        leftEdge = Camera.main.ScreenToWorldPoint(Vector3.zero).x;
     }
 
     private void Update()
@@ -19,9 +21,9 @@ public class PipesMovement : MonoBehaviour
 
         if (transform.position.x < leftEdge)
         {
-            Destroy(gameObject);         
+            gameObject.SetActive(false);
+            transform.position = new Vector3(12, 0, 0);
+            gameObject.SetActive(true);
         }
     }
 }
-
-

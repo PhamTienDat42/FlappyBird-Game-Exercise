@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - Scoring
+  - SaveIndexBird
   layers:
   - Default
   - TransparentFX

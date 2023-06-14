@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SlowBirdController : MonoBehaviour
+public class SlowBirdController : Player
 {
     private bool isSlowed = false;
     private float originalTimeScale;
@@ -10,13 +10,14 @@ public class SlowBirdController : MonoBehaviour
         originalTimeScale = Time.timeScale;
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         if (Input.GetKeyDown(KeyCode.S))
         {
             if (!isSlowed)
             {
-                SlowGame();
+                SpecialSkill();
             }
             else if (isSlowed && Time.timeScale != originalTimeScale)
             {
@@ -25,8 +26,7 @@ public class SlowBirdController : MonoBehaviour
         }
     }
 
-
-    private void SlowGame()
+    protected override void SpecialSkill()
     {
         isSlowed = true;
         Time.timeScale = 0.5f;

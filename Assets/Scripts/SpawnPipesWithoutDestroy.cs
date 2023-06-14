@@ -1,32 +1,59 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnPipes : MonoBehaviour
+public class SpawnPipesWithoutDestroy : MonoBehaviour
 {
     [SerializeField] private GameObject prefab;
     [SerializeField] private float spawnRate = 1f;
     [SerializeField] private float minHeight = -1f;
     [SerializeField] private float maxHeight = 2f;
+    [SerializeField] private Transform transformPipes;
     private List<GameObject> spawnedPipes = new List<GameObject>();
+    //private GameObject[] pipesArray;
     private int currentIndex = 0;
-    
-    
-    private void OnEnable()
+    //private int pipeCount = 0;
+
+
+    private void Awake()
     {
-        InvokeRepeating(nameof(Spawn), spawnRate, spawnRate);
+        //pipesArray = new GameObject[4];    
+        Spawn();
     }
 
-    private void OnDisable()
-    {
-        CancelInvoke(nameof(Spawn));
-    }
+    //private void OnEnable()
+    //{
+    //    InvokeRepeating(nameof(Spawn), spawnRate, spawnRate);
+    //}
 
-    private void Spawn() 
-    {
-        GameObject pipes = Instantiate(prefab, transform.position, Quaternion.identity);
-        pipes.transform.position += Vector3.up * Random.Range(minHeight, maxHeight);
+    //private void OnDisable()
+    //{
+    //    CancelInvoke(nameof(Spawn));
+    //}
 
-        spawnedPipes.Add(pipes);
+    private void Spawn()
+    {
+        //GameObject pipes = Instantiate(prefab, transform.position, Quaternion.identity);
+        //pipes.transform.position += Vector3.up * Random.Range(minHeight, maxHeight);
+
+        //spawnedPipes.Add(pipes);
+
+        //pipesArray[pipeCount] = pipes;
+        //if (pipeCount >= 15)
+        //{
+        //    CancelInvoke(nameof(Spawn));
+        //    return;
+        //}
+
+        //// Spawn pipe and add
+
+        //pipeCount++;
+        GameObject pipes = ObjectPool.SharedInstance.GetPooledObject();
+        if(pipes != null)
+        {
+            pipes.transform.position = transformPipes.position;
+            pipes.transform.rotation = transformPipes.rotation;
+        }
     }
 
     public Vector3 GetNextPipePosition()
